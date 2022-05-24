@@ -21,10 +21,14 @@
 			<form th:action="@{/companies/find}" method="POST">
 				<thead>
 					<tr>
-						<th colspan="2">Company Name</th>
+						<th colspan="2"><label  class="col-form-label">Company Name </label></th>
 					</tr>			
 					<tr>
-						<td colspan="2"><input type="text" placeholder="Parent Company" name="companyName" th:value="${companyName}" class="form-control mb-4 col-4">
+						<td colspan="2">
+						<select name="companyName" >
+							<option value="0">Select Company</option>
+							<option th:each="company : ${listCompanies}" th:value="${company.name}" th:text="${company.name}" class="form-control mb-4 col-4"></option>
+						</select>
 						<button type="submit" class="btn btn-info">Get SubCompanies</button></td>
 					</tr>
 				</thead>

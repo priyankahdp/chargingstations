@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,7 +42,7 @@ public class ChargingServiceImpl implements ChargingService {
 	@Override
 	public Map<Double,ChargingStation> getStationsByRadius(Double radius, Double latitude, Double longitude) {
 		List<ChargingStation> chargingStations = chargingDao.getChargingStations();
-		Map<Double,ChargingStation> distances = new HashMap<>();
+		Map<Double,ChargingStation> distances = new TreeMap<>();
 		chargingStations.forEach(chargingStation -> {
 			Double distance = calculateDistance(latitude, longitude, chargingStation.getLatitude(),chargingStation.getLongitude());
 			DecimalFormat df = new DecimalFormat("#.#");

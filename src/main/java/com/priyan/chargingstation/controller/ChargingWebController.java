@@ -36,6 +36,7 @@ public class ChargingWebController {
 	
 	@GetMapping("/searchCompanies")
 	public String searchCompanies(Model model) {
+		model.addAttribute("listCompanies",chargingService.getCompanies());
 		return "searchCompanies";
 	}
 	
@@ -51,6 +52,8 @@ public class ChargingWebController {
 	
 	@PostMapping("/companies/find")
 	public String getSubCompanies(String companyName,Model model) {
+		model.addAttribute("listCompanies",chargingService.getCompanies());
+		
 		List<Company> companies = chargingService.getChildCompanies(companyName);
 		model.addAttribute("subCompanies", companies);
 		return "searchCompanies";
