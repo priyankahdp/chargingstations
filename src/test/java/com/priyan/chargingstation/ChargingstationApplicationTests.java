@@ -118,9 +118,9 @@ class ChargingstationApplicationTests {
 		
 		ChargingStation chargingStationGothenburg = new ChargingStation();
 		chargingStationGothenburg.setName("Gothenburg");
-		
-		if (companyTwoOpt.isPresent()) {
-			chargingStationGothenburg.setCompany(companyTwoOpt.get());
+		Optional<Company> companySixOpt = companyRepository.findById(6);
+		if (companySixOpt.isPresent()) {
+			chargingStationGothenburg.setCompany(companySixOpt.get());
 		}
 		chargingStationGothenburg.setLatitude(57.708870);
 		chargingStationGothenburg.setLongitude(11.974560);

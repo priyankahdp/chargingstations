@@ -2,17 +2,18 @@ package com.priyan.chargingstation.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.priyan.chargingstation.entity.ChargingStation;
 import com.priyan.chargingstation.entity.Company;
+import com.priyan.chargingstation.repository.ChargingRepository;
 import com.priyan.chargingstation.service.ChargingService;
 
 @Controller
@@ -21,6 +22,9 @@ public class ChargingWebController {
 
 	@Autowired
 	private ChargingService chargingService;
+	
+	@Autowired
+	private ChargingRepository chargingRepository;
 
 	@GetMapping("/")
 	public String loadStationsHomePage(Model model) {
@@ -53,9 +57,11 @@ public class ChargingWebController {
 	@PostMapping("/companies/find")
 	public String getSubCompanies(String companyName,Model model) {
 		model.addAttribute("listCompanies",chargingService.getCompanies());
-		
 		List<Company> companies = chargingService.getChildCompanies(companyName);
 		model.addAttribute("subCompanies", companies);
+		List<Integer> companyIds = companies.stream().map(Company::getCompanyId).collect(Collectors.toList());
+		List<ChargingStation>subStations = chargingRepository.findAllStationsByCompanyId(companyIds);
+		model.addAttribute("subStations", subStations);
 		return "searchCompanies";
 	}
 }
