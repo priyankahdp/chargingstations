@@ -1,5 +1,7 @@
 package com.priyan.chargingstation.entity;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,5 +40,24 @@ public class ChargingStation{
 	@ManyToOne
 	@JoinColumn(name = "company_id")
 	private Company company;
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(stationId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ChargingStation other = (ChargingStation) obj;
+		return Objects.equals(stationId, other.stationId);
+	}
+	
+	
 
 }

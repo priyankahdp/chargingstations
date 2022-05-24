@@ -1,6 +1,7 @@
 package com.priyan.chargingstation.entity;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -37,5 +38,22 @@ public class Company {
 
 	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<ChargingStation> chargingStationEntities = new HashSet<>();
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(companyId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Company other = (Company) obj;
+		return Objects.equals(companyId, other.companyId);
+	}
 
 }

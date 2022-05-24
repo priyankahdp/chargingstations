@@ -14,5 +14,6 @@ public interface ChargingDao {
 	public List<Company> getCompanies();
 
 	public Company createCompanies(Company company);
-
+	
+	public List<Company> getChildCompanies(String companyName);
 }
