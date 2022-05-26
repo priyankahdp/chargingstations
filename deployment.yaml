@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: minikube-demo
+  name: minikube-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minikube-demo
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: minikube-demo
+    spec:
+      containers:
+      - image: priyanka20210306/chargingstation_api_service:latest
+        name: docker-demo
+        resources: {}
+status: {}
